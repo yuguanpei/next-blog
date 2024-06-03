@@ -3,9 +3,19 @@ import { PrismLight as SyntaxHighlighter } from "react-syntax-highlighter";
 import atomDark from "react-syntax-highlighter/dist/cjs/styles/prism/atom-dark";
 import js from "react-syntax-highlighter/dist/cjs/languages/prism/javascript";
 import css from "react-syntax-highlighter/dist/cjs/languages/prism/css";
+import bash from "react-syntax-highlighter/dist/cjs/languages/prism/bash";
+import java from "react-syntax-highlighter/dist/cjs/languages/prism/java";
+import sql from "react-syntax-highlighter/dist/cjs/languages/prism/sql";
+import python from "react-syntax-highlighter/dist/cjs/languages/prism/python";
+import yaml from "react-syntax-highlighter/dist/cjs/languages/prism/yaml";
 
 SyntaxHighlighter.registerLanguage("js", js);
 SyntaxHighlighter.registerLanguage("css", css);
+SyntaxHighlighter.registerLanguage("bash", bash);
+SyntaxHighlighter.registerLanguage("java", java);
+SyntaxHighlighter.registerLanguage("sql", sql);
+SyntaxHighlighter.registerLanguage("python", python);
+SyntaxHighlighter.registerLanguage("yaml", yaml);
 
 import PostHeader from "./post-header";
 import classes from "./post-content.module.css";
@@ -14,22 +24,22 @@ export default function PostContent(props) {
   const { post } = props;
 
   const customComponents = {
-    p(props) {
+    img(props) {
       const { node } = props;
-      if (node.children[0].tagName === "img") {
-        const image = node.children[0];
-        return (
-          <div className={classes.image}>
-            <Image
-              src={image.properties.src}
-              alt={image.properties.alt}
-              width={600}
-              height={300}
-            />
-          </div>
-        );
-      }
-      return <p>{props.children}</p>;
+      return (
+        <div className={classes.image}>
+          <Image
+            src={node.properties.src}
+            alt={node.properties.alt}
+            width={600}
+            height={300}
+            layout="responsive"
+            style={{
+              maxWidth: "100%",
+            }}
+          />
+        </div>
+      );
     },
     code(props) {
       const { children, className, node, ...rest } = props;
