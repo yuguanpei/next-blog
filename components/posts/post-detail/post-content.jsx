@@ -33,7 +33,7 @@ export default function PostContent(props) {
             alt={node.properties.alt}
             width={600}
             height={300}
-            layout="responsive"
+            style={{ height: "auto" }}
           />
         </div>
       );
