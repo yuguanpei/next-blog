@@ -24,7 +24,9 @@ export default function PostItem(props) {
               alt={title}
               width={300}
               height={200}
-              layout="responsive"
+              style={{
+                width: "100%",
+              }}
             />
           </div>
           <div className={classes.content}>

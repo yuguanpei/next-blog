@@ -34,9 +34,6 @@ export default function PostContent(props) {
             width={600}
             height={300}
             layout="responsive"
-            style={{
-              maxWidth: "100%",
-            }}
           />
         </div>
       );
