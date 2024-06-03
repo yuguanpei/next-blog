@@ -12,7 +12,6 @@ export default function PostItem(props) {
     year: "numeric",
   });
 
-  const imagePath = `/images/posts/${slug}/${image}`;
   const linkPath = `/posts/${slug}`;
 
   return (
@@ -21,7 +20,7 @@ export default function PostItem(props) {
         <a>
           <div className={classes.image}>
             <Image
-              src={imagePath}
+              src={image}
               alt={title}
               width={300}
               height={200}

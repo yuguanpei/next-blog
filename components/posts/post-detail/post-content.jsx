@@ -13,8 +13,6 @@ import Image from "next/image";
 export default function PostContent(props) {
   const { post } = props;
 
-  const imagePath = `/images/posts/${post.slug}/${post.image}`;
-
   const customComponents = {
     p(props) {
       const { node } = props;
@@ -23,7 +21,7 @@ export default function PostContent(props) {
         return (
           <div className={classes.image}>
             <Image
-              src={`/images/posts/${post.slug}/${image.properties.src}`}
+              src={image.properties.src}
               alt={image.properties.alt}
               width={600}
               height={300}
@@ -54,7 +52,7 @@ export default function PostContent(props) {
 
   return (
     <article className={classes.content}>
-      <PostHeader title={post.title} image={imagePath} />
+      <PostHeader title={post.title} image={post.image} />
       <ReactMarkdown components={customComponents}>
         {post.content}
       </ReactMarkdown>

@@ -3,7 +3,7 @@ import Notification from "../ui/notification";
 import { useEffect, useState } from "react";
 
 async function sendContactData(contactDetails) {
-  const response = await fetch("/api/contact", {
+  const response = await fetch("https://www.imusm.cn/lcdp/api/blog/contact", {
     method: "POST",
     body: JSON.stringify(contactDetails),
     headers: {

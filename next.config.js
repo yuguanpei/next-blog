@@ -1,23 +1,14 @@
-const { PHASE_DEVELOPMENT_SERVER } = require("next/constants");
-
-module.exports = (phase) => {
-  if (phase === PHASE_DEVELOPMENT_SERVER) {
-    return {
-      env: {
-        mogodb_username: "admin",
-        mogodb_password: "admin",
-        mogodb_clustername: "cluster0",
-        mogodb_database: "blog-dev",
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "www.imusm.cn",
+        port: "",
       },
-    };
-  }
+    ],
+  },
+}
 
-  return {
-    env: {
-      mogodb_username: "admin",
-      mogodb_password: "admin",
-      mogodb_clustername: "cluster0",
-      mogodb_database: "blog",
-    },
-  };
-};
+module.exports = nextConfig

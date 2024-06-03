@@ -1,8 +1,10 @@
 import PostContent from "../../components/posts/post-detail/post-content";
-import { getPostsFiles, getPostData } from "../../lib/posts-util";
 import Head from "next/head";
 export default function PostPage(props) {
   const { post } = props;
+  // if (!post) {
+  //   return <p className="center">Loading...</p>;
+  // }
   return (
     <>
       <Head>
@@ -14,20 +16,30 @@ export default function PostPage(props) {
   );
 }
 
-export function getStaticProps(context) {
+export async function getStaticProps(context) {
   const { slug } = context.params;
-  const postData = getPostData(slug);
+  const response = await fetch(
+    `https://www.imusm.cn/lcdp/api/blog/posts/${slug}`
+  );
+  const data = await response.json();
+  const postData = data.data;
+  if (!postData) {
+    return { notFound: true };
+  }
+
   return {
     props: { post: postData },
   };
 }
 
-export function getStaticPaths() {
-  const postsFiles = getPostsFiles();
-  const slugs = postsFiles.map((fileName) => fileName.replace(/\.md$/, ""));
+export async function getStaticPaths() {
+  const response = await fetch("https://www.imusm.cn/lcdp/api/blog/posts?featured=1");
+  const data = await response.json();
+  const allPosts = data.data;
+  const slugs = allPosts.map((post) => post.slug);
 
   return {
     paths: slugs.map((slug) => ({ params: { slug: slug } })),
-    fallback: false,
+    fallback: 'blocking', // true,
   };
 }
