@@ -18,13 +18,15 @@ export default function AllPostsPage(props) {
 }
 
 export async function getStaticProps() {
-  const response = await fetch("https://www.imusm.cn/lcdp/api/blog/posts");
+  const response = await fetch(
+    `https://www.imusm.cn/lcdp/api/blog/posts?t=${new Date().getTime()}`
+  );
   const data = await response.json();
   const allPosts = data.data;
   return {
     props: {
       posts: allPosts,
     },
-    revalidate: 1800,
+    revalidate: 3600,
   };
 }

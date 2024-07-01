@@ -20,7 +20,7 @@ function HomePage(props) {
 
 export async function getStaticProps() {
   const response = await fetch(
-    "https://www.imusm.cn/lcdp/api/blog/posts?featured=1"
+    `https://www.imusm.cn/lcdp/api/blog/posts?featured=1&t=${new Date().getTime()}`
   );
   const data = await response.json();
   const featuredPosts = data.data;
@@ -29,7 +29,7 @@ export async function getStaticProps() {
     props: {
       posts: featuredPosts,
     },
-    revalidate: 1800,
+    revalidate: 3600,
   };
 }
 

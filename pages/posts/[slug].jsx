@@ -19,7 +19,7 @@ export default function PostPage(props) {
 export async function getStaticProps(context) {
   const { slug } = context.params;
   const response = await fetch(
-    `https://www.imusm.cn/lcdp/api/blog/posts/${slug}`
+    `https://www.imusm.cn/lcdp/api/blog/posts/${slug}?t=${new Date().getTime()}`
   );
   const data = await response.json();
   const postData = data.data;
@@ -33,13 +33,15 @@ export async function getStaticProps(context) {
 }
 
 export async function getStaticPaths() {
-  const response = await fetch("https://www.imusm.cn/lcdp/api/blog/posts?featured=1");
+  const response = await fetch(
+    `https://www.imusm.cn/lcdp/api/blog/posts?featured=1&t=${new Date().getTime()}`
+  );
   const data = await response.json();
   const allPosts = data.data;
   const slugs = allPosts.map((post) => post.slug);
 
   return {
     paths: slugs.map((slug) => ({ params: { slug: slug } })),
-    fallback: 'blocking', // true,
+    fallback: "blocking", // true,
   };
 }
